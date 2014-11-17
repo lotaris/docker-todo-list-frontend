@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="ToDoList">
+	<head>
+		<title>ToDo List</title>
+		<script src="bower_components/angular/angular.js"></script>
+		<script src="js/todolist.js"></script>
+		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+		<link rel="stylesheet" href="css/todolist.css">
+	</head>
+	<body>
+		<div class="container">
+			<h1>ToDo List</h1>
+			<div ng-controller="ToDoListController">
+				<ul>
+					<li ng-repeat="todo in todos">
+						<input type="checkbox" ng-change="updateToDo(todo)" ng-model="todo.checked"> <span ng-class="{strike: todo.checked}">{{todo.name}}</span>
+					</li>
+				</ul>
+				<form ng-submit="addToDo()">
+					<input type="text" placeholder="New to do..." ng-model="toDoName">
+					<input type="submit" value="Add">
+				</form>
+			</div>
+		</div>
+	</body>
+</html>
