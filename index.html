@@ -3,6 +3,7 @@
 	<head>
 		<title>ToDo List</title>
 		<script src="bower_components/angular/angular.js"></script>
+		<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
 		<script src="js/todolist.js"></script>
 		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 		<link rel="stylesheet" href="css/todolist.css">
@@ -11,14 +12,22 @@
 		<div class="container">
 			<h1>ToDo List</h1>
 			<div ng-controller="ToDoListController">
+				<div class="btn-group">
+					<label class="btn btn-default btn-sm" ng-model="showCategory" btn-radio="'todo'">{{nbTodo}} to do</label>
+					<label class="btn btn-default btn-sm" ng-model="showCategory" btn-radio="'completed'">{{nbCompleted}} completed</label>
+					<label class="btn btn-default btn-sm" ng-model="showCategory" btn-radio="'all'">all</label>
+				</div>
 				<ul>
-					<li ng-repeat="todo in todos">
+					<li ng-repeat="todo in toDisplay">
 						<input type="checkbox" ng-change="updateToDo(todo)" ng-model="todo.checked"> <span ng-class="{strike: todo.checked}">{{todo.name}}</span>
 					</li>
 				</ul>
 				<form ng-submit="addToDo()">
 					<input type="text" placeholder="New to do..." ng-model="toDoName">
-					<input type="submit" value="Add">
+					<input type="submit" value="Add" class="btn btn-primary">
+				</form>
+				<form ng-submit="removeCompleted()">
+					<input type="submit" value="Remove completed" class="btn btn-danger btn-sm">
 				</form>
 			</div>
 		</div>
