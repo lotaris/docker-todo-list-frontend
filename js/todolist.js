@@ -20,13 +20,13 @@ app.controller('ToDoListController', ['$scope', '$http', function($scope, $http)
 	});
 
 	// get all todos
-	$http.get('/tl/api/list').success(function(data) {
+	$http.get('/tl/api/todos').success(function(data) {
 		$scope.todoList = data;
 	});
 
 	// add a new todo
 	$scope.addToDo = function() {
-		$http.post('/tl/api/list', {name: $scope.toDoName}).success(function(data) {
+		$http.post('/tl/api/todos', {name: $scope.toDoName}).success(function(data) {
 			$scope.todoList.push(data);
 			$scope.nbTodo += 1;
 			$scope.toDoName = '';
@@ -36,11 +36,11 @@ app.controller('ToDoListController', ['$scope', '$http', function($scope, $http)
 	// update a todo
 	$scope.updateToDo = function(toDo) {
 		if (toDo.checked) {
-			$http.post('/tl/api/list/' + toDo.id + '/check');
+			$http.post('/tl/api/todos/' + toDo.id + '/check');
 			$scope.nbTodo -= 1;
 			$scope.nbCompleted += 1;
 		} else {
-			$http.post('/tl/api/list/' + toDo.id + '/uncheck');
+			$http.post('/tl/api/todos/' + toDo.id + '/uncheck');
 			$scope.nbTodo += 1;
 			$scope.nbCompleted -= 1;
 		}
@@ -48,7 +48,9 @@ app.controller('ToDoListController', ['$scope', '$http', function($scope, $http)
 
 	// delete completed todos
 	$scope.removeCompleted = function() {
-
+		$http.delete('/tl/api/todos?type=completed').success(function(data) {
+			$scope.todoList = data;
+		});
 	};
 
 	// return true if a todo should be displayed
