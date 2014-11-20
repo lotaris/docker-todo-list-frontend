@@ -18,7 +18,7 @@
 					<label class="btn btn-default btn-sm" ng-model="showCategory" btn-radio="'all'">all</label>
 				</div>
 				<ul>
-					<li ng-repeat="todo in toDisplay">
+					<li ng-repeat="todo in todoList | filter: shouldDisplayToDo">
 						<input type="checkbox" ng-change="updateToDo(todo)" ng-model="todo.checked"> <span ng-class="{strike: todo.checked}">{{todo.name}}</span>
 					</li>
 				</ul>
